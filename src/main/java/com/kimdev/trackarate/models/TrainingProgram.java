@@ -10,22 +10,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
-@Entity(name = "Users")
-public class User {
+@Entity(name = "TrainingPrograms")
+public class TrainingProgram {
     @Id
     @GeneratedValue(generator = "uuid4")
     @GenericGenerator(name = "uuid4", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", columnDefinition = "VARCHAR(255)", unique = true, nullable = false, updatable = false)
     private UUID id;
 
-    @Column(nullable = false, unique = true, length = 26)
-    private String username;
+    @Column(nullable = false, length = 20)
+    private String name;
 
-    @Column(nullable = false, unique = true, length = 120)
-    private String email;
-
-    @Column(nullable = true, unique = true, length = 14)
-    private String phone;
+    @Column(length = 3)
+    private Integer duration;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime created_at;
@@ -33,10 +30,8 @@ public class User {
     @Column
     private LocalDateTime updated_at;
 
-    private User(String username, String email, String phone) {
-        // this.username = username;
-        // this.email = email;
-        // this.phone = phone;
+    public TrainingProgram(String name, Integer duration) {
+        // this.name = name;
+        // this.duration = duration;
     }
-
 }
