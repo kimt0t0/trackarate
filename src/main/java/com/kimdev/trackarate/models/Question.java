@@ -6,43 +6,35 @@ import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
-@Entity(name = "TrainingPrograms")
-public class TrainingProgram {
+@Entity(name = "Questions")
+public class Question {
     @Id
     @GeneratedValue(generator = "uuid4")
     @GenericGenerator(name = "uuid4", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", columnDefinition = "VARCHAR(255)", unique = true, nullable = false, updatable = false)
     private UUID id;
 
-    @Column(nullable = false, length = 20)
-    private String name;
+    @Column(nullable = false, length = 255)
+    private String title;
 
-    @Column(length = 3)
-    private Integer duration;
+    @Column(length = 2000)
+    private String details;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+    private List<Answer> answers;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "id_user")
     private User user;
-
-    @ManyToMany
-    @JoinTable(name = "programs_sessions", joinColumns = @JoinColumn(name = "program_id"), inverseJoinColumns = @JoinColumn(name = "session_id"))
-    private List<TrainingSession> trainingSessions;
-
-    @OneToMany(mappedBy = "trainingProgram")
-    private List<Comment> comments;
-
-    @OneToMany(mappedBy = "trainingProgram")
-    private List<Like> likes;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime created_at;
@@ -50,8 +42,8 @@ public class TrainingProgram {
     @Column
     private LocalDateTime updated_at;
 
-    public TrainingProgram(String name, Integer duration) {
-        // this.name = name;
-        // this.duration = duration;
+    public Question(String title, String details) {
+        // this.title = title;
+        // this.details = details;
     }
 }

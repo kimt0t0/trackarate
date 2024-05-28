@@ -1,14 +1,20 @@
 package com.kimdev.trackarate.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity(name = "Users")
 public class User {
@@ -27,13 +33,53 @@ public class User {
     @Column(nullable = true, unique = true, length = 14)
     private String phone;
 
+    @OneToOne(mappedBy = "user")
+    private Settings settings;
+
+    @ManyToOne
+    @JoinColumn(name = "id_role")
+    private Role role;
+
+    // @ManyToMany
+    // @JsonBackReference
+    // private User sensei;
+
+    // @ManyToMany
+    // @JsonBackReference
+    // private List<User> students;
+
+    // @ManyToMany
+    // @JsonBackReference
+    // private List<User> contact;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<TrainingProgram> trainingPrograms;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<TrainingSession> trainingSessions;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Exercise> exercises;
+
+    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
+    private List<Question> questions;
+
+    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
+    private List<Answer> answers;
+
+    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
+    private List<Like> likes;
+
+    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
+    private List<Comment> comments;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime created_at;
 
     @Column
     private LocalDateTime updated_at;
 
-    private User(String username, String email, String phone) {
+    public User(String username, String email, String phone) {
         // this.username = username;
         // this.email = email;
         // this.phone = phone;

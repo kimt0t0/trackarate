@@ -1,13 +1,16 @@
 package com.kimdev.trackarate.models;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity(name = "Roles")
 public class Role {
@@ -19,6 +22,9 @@ public class Role {
 
     @Column(nullable = false, length = 10)
     private String name;
+
+    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "role")
+    private List<User> users;
 
     public Role(String name) {
         // this.name = name;

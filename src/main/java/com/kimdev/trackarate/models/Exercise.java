@@ -6,18 +6,18 @@ import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
-@Entity(name = "TrainingSessions")
-public class TrainingSession {
+@Entity(name = "Exercises")
+public class Exercise {
     @Id
     @GeneratedValue(generator = "uuid4")
     @GenericGenerator(name = "uuid4", strategy = "org.hibernate.id.UUIDGenerator")
@@ -25,29 +25,25 @@ public class TrainingSession {
     private UUID id;
 
     @Column(nullable = false, length = 120)
-    private String name;
+    private String title;
 
-    @Column(length = 3)
-    private Integer duration;
-
-    @Column
-    private LocalDateTime datetime;
+    @Column(nullable = false, length = 5000)
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "trainingSessions")
-    private List<TrainingProgram> trainingPrograms;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise")
+    private List<Media> mediaList;
 
-    @ManyToMany
-    @JoinTable(name = "sessions_exercises", joinColumns = @JoinColumn(name = "session_id"), inverseJoinColumns = @JoinColumn(name = "exercise_id"))
-    private List<Exercise> exercises;
+    @ManyToMany(mappedBy = "exercises")
+    private List<TrainingSession> trainingSessions;
 
-    @OneToMany(mappedBy = "trainingSession")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise")
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "trainingSession")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise")
     private List<Like> likes;
 
     @Column(nullable = false, updatable = false)
@@ -56,9 +52,8 @@ public class TrainingSession {
     @Column
     private LocalDateTime updated_at;
 
-    public TrainingSession(String name, Integer duration, LocalDateTime datetime) {
-        // this.name = name;
-        // this.duration = duration;
-        // this.datetime = datetime;
+    private Exercise(String title, String description) {
+        // this.title = title;
+        // this.description = description;
     }
 }
