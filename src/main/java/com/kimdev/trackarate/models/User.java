@@ -12,6 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -40,17 +42,17 @@ public class User {
     @JoinColumn(name = "id_role")
     private Role role;
 
-    // @ManyToMany
-    // @JsonBackReference
-    // private User sensei;
+    @ManyToMany
+    @JoinTable(name = "user_senseis", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "sensei_id"))
+    private List<User> senseiList;
 
-    // @ManyToMany
-    // @JsonBackReference
-    // private List<User> students;
+    @ManyToMany
+    @JoinTable(name = "user_students", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<User> studentsList;
 
-    // @ManyToMany
-    // @JsonBackReference
-    // private List<User> contact;
+    @ManyToMany
+    @JoinTable(name = "user_contacts", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "contact_id"))
+    private List<User> contactsList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<TrainingProgram> trainingPrograms;
