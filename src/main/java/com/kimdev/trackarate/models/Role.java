@@ -11,7 +11,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity(name = "Roles")
 public class Role {
     @Id
@@ -25,9 +29,5 @@ public class Role {
 
     @OneToMany(cascade = CascadeType.DETACH, mappedBy = "role")
     private List<User> users;
-
-    public Role(String name) {
-        // this.name = name;
-    }
 
 }

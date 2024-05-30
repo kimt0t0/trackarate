@@ -15,7 +15,11 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity(name = "TrainingPrograms")
 public class TrainingProgram {
     @Id
@@ -35,6 +39,10 @@ public class TrainingProgram {
     private User user;
 
     @ManyToMany
+    @JoinTable(name = "programs_types", joinColumns = @JoinColumn(name = "program_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private List<Type> programTypes;
+
+    @ManyToMany
     @JoinTable(name = "programs_sessions", joinColumns = @JoinColumn(name = "program_id"), inverseJoinColumns = @JoinColumn(name = "session_id"))
     private List<TrainingSession> trainingSessions;
 
@@ -49,9 +57,4 @@ public class TrainingProgram {
 
     @Column
     private LocalDateTime updated_at;
-
-    public TrainingProgram(String name, Integer duration) {
-        // this.name = name;
-        // this.duration = duration;
-    }
 }

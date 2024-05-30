@@ -14,7 +14,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity(name = "Questions")
 public class Question {
     @Id
@@ -41,9 +45,4 @@ public class Question {
 
     @Column
     private LocalDateTime updated_at;
-
-    public Question(String title, String details) {
-        // this.title = title;
-        // this.details = details;
-    }
 }

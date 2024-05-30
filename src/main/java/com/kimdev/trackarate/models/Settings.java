@@ -11,7 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity
 public class Settings {
     @Id
@@ -50,27 +54,4 @@ public class Settings {
 
     @Column
     private LocalDateTime updated_at;
-
-    public Settings(boolean isPrivate, boolean evaluateTrainingsPerWeek, Integer trainingsPerWeek,
-            boolean evaluateTrainingsAverageDuration, Integer trainingsAverageDuration, String beltOrGrade,
-            String goals) {
-        // this.isPrivate = isPrivate;
-        // if (!isPrivate)
-        // this.isPrivate = false;
-
-        // this.evaluateTrainingsPerWeek = evaluateTrainingsPerWeek;
-        // if (!evaluateTrainingsPerWeek)
-        // this.evaluateTrainingsPerWeek = false;
-        // this.trainingsPerWeek = trainingsPerWeek;
-
-        // this.evaluateTrainingsAverageDuration = evaluateTrainingsAverageDuration;
-        // if (!evaluateTrainingsAverageDuration)
-        // this.evaluateTrainingsAverageDuration = false;
-
-        // this.trainingsAverageDuration = trainingsAverageDuration;
-
-        // this.beltOrGrade = beltOrGrade;
-
-        // this.goals = goals;
-    }
 }

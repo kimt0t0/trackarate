@@ -17,7 +17,11 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity(name = "Users")
 public class User {
     @Id
@@ -38,20 +42,23 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Settings settings;
 
+    @OneToOne(mappedBy = "user")
+    private Avatar avatar;
+
     @ManyToOne
     @JoinColumn(name = "id_role")
     private Role role;
 
     @ManyToMany
-    @JoinTable(name = "user_senseis", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "sensei_id"))
+    @JoinTable(name = "users_senseis", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "sensei_id"))
     private List<User> senseiList;
 
     @ManyToMany
-    @JoinTable(name = "user_students", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @JoinTable(name = "users_students", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<User> studentsList;
 
     @ManyToMany
-    @JoinTable(name = "user_contacts", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "contact_id"))
+    @JoinTable(name = "users_contacts", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "contact_id"))
     private List<User> contactsList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -80,11 +87,5 @@ public class User {
 
     @Column
     private LocalDateTime updated_at;
-
-    public User(String username, String email, String phone) {
-        // this.username = username;
-        // this.email = email;
-        // this.phone = phone;
-    }
 
 }

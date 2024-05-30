@@ -12,10 +12,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity(name = "Exercises")
 public class Exercise {
     @Id
@@ -37,6 +42,10 @@ public class Exercise {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise")
     private List<Media> mediaList;
 
+    @ManyToMany
+    @JoinTable(name = "exercises_types", joinColumns = @JoinColumn(name = "exercise_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private List<Type> exerciseTypes;
+
     @ManyToMany(mappedBy = "exercises")
     private List<TrainingSession> trainingSessions;
 
@@ -51,9 +60,4 @@ public class Exercise {
 
     @Column
     private LocalDateTime updated_at;
-
-    private Exercise(String title, String description) {
-        // this.title = title;
-        // this.description = description;
-    }
 }

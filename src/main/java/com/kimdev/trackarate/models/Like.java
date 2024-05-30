@@ -11,7 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity(name = "Likes")
 public class Like {
     @Id
@@ -41,7 +45,4 @@ public class Like {
 
     @Column
     private LocalDateTime updated_at;
-
-    public Like() {
-    }
 }

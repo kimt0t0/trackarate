@@ -11,7 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity(name = "Comments")
 public class Comment {
     @Id
@@ -47,9 +51,4 @@ public class Comment {
 
     @Column
     private LocalDateTime updated_at;
-
-    public Comment(String title, String text) {
-        // this.title = title;
-        // this.text = text;
-    }
 }

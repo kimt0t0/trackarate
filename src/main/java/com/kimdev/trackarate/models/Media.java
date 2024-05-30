@@ -5,13 +5,21 @@ import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.kimdev.trackarate.enums.MediaType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity(name = "Media")
 public class Media {
     @Id
@@ -26,6 +34,10 @@ public class Media {
     @Column(length = 500)
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private MediaType type;
+
     @Column(nullable = false, length = 255)
     private String path;
 
@@ -38,10 +50,4 @@ public class Media {
 
     @Column
     private LocalDateTime updated_at;
-
-    public Media(String title, String description, String path) {
-        // this.title = title;
-        // this.description = description;
-        // this.path = path;
-    }
 }

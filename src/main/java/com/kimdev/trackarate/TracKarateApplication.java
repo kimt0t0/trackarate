@@ -9,5 +9,4 @@ public class TracKarateApplication {
     public static void main(String[] args) {
         SpringApplication.run(TracKarateApplication.class, args);
     }
-
 }
