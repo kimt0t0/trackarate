@@ -1,40 +1,28 @@
 package com.kimdev.trackarate.models;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-import org.hibernate.annotations.GenericGenerator;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @Entity
-public class Settings {
-    @Id
-    @GeneratedValue(generator = "uuid4")
-    @GenericGenerator(name = "uuid4", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", columnDefinition = "VARCHAR(255)", unique = true, nullable = false, updatable = false)
-    private UUID id;
+public class Settings extends AbstractEntity {
 
     @Column(nullable = false)
     private boolean isPrivate;
 
     @Column(nullable = true)
-    private boolean evaluateTrainingsPerWeek = false;
+    private boolean evaluateTrainingsPerWeek;
 
     @Column(length = 2)
     private Integer trainingsPerWeek;
 
     @Column(nullable = true)
-    private boolean evaluateTrainingsAverageDuration = false;
+    private boolean evaluateTrainingsAverageDuration;
 
     @Column(length = 3)
     private Integer trainingsAverageDuration;
@@ -48,10 +36,4 @@ public class Settings {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime created_at;
-
-    @Column
-    private LocalDateTime updated_at;
 }

@@ -1,34 +1,23 @@
 package com.kimdev.trackarate.models;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
-
-import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @Entity(name = "Users")
-public class User {
-    @Id
-    @GeneratedValue(generator = "uuid4")
-    @GenericGenerator(name = "uuid4", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", columnDefinition = "VARCHAR(255)", unique = true, nullable = false, updatable = false)
-    private UUID id;
+public class User extends AbstractEntity {
 
     @Column(nullable = false, unique = true, length = 26)
     private String username;
@@ -81,11 +70,4 @@ public class User {
 
     @OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
     private List<Comment> comments;
-
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime created_at;
-
-    @Column
-    private LocalDateTime updated_at;
-
 }
