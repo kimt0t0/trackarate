@@ -17,4 +17,11 @@ public interface AvatarRepository extends JpaRepository<Avatar, UUID> {
     Avatar findOneById(UUID id);
 
     Avatar findOneByUserId(UUID id);
+
+    Avatar findOneByUserIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+
+    Avatar findOneByUserUsername(String username);
+
+    Avatar findOneByUserUsernameAndUserSettingsIsPrivate(String username, boolean isPrivate);
+
 }

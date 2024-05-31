@@ -67,4 +67,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     User findOneByEmailAndSettingsIsPrivate(String email, boolean isPrivate);
 
+    User findOneByMediaListUserId(UUID id);
+
+    User findOneByMediaListUserIdAndSettingsIsPrivate(UUID id, boolean isPrivate);
 }

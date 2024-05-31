@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.kimdev.trackarate.models.Comment;
 
@@ -12,14 +11,23 @@ public interface CommentRepository extends JpaRepository<Comment, UUID> {
     // FIND MANY
     List<Comment> findAllByUserId(UUID id);
 
-    @Query(value = "select * from comments c inner join exercises e on c.id_exercise = e.id", nativeQuery = true)
+    List<Comment> findAllByUserIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+
+    List<Comment> findAllByUserUsername(String id);
+
+    List<Comment> findAllByUserUsernameAndUserSettingsIsPrivate(String id, boolean isPrivate);
+
     List<Comment> findAllByExerciseId(UUID id);
 
-    @Query(value = "select * from comments c inner join training_programs p on c.id_program = p.id", nativeQuery = true)
+    List<Comment> findAllByExerciseIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+
     List<Comment> findAllByTrainingProgramId(UUID id);
 
-    @Query(value = "select * from comments c inner join training_sessions s on c.id_session = s.id", nativeQuery = true)
+    List<Comment> findAllByTrainingProgramIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+
     List<Comment> findAllByTrainingSessionId(UUID id);
+
+    List<Comment> findAllByTrainingSessionIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
 
     // FIND ONE
     Comment findOneById(UUID id);

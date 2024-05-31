@@ -26,6 +26,10 @@ public class Media extends AbstractEntity {
     @Column(nullable = false, length = 10)
     private MediaType type;
 
+    @ManyToOne
+    @JoinColumn(name = "id_media")
+    private User user;
+
     @Column(nullable = false, length = 255)
     private String path;
 

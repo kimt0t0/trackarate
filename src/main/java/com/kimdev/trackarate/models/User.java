@@ -38,6 +38,9 @@ public class User extends AbstractEntity {
     @JoinColumn(name = "id_role")
     private Role role;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Media> mediaList;
+
     @ManyToMany
     @JoinTable(name = "users_senseis", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "sensei_id"))
     private List<User> senseiList;
