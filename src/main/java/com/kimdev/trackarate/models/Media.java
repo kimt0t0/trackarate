@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @Entity(name = "Media")
 public class Media extends AbstractEntity {
 
-    @Column(nullable = false, length = 255)
+    @Column(unique = true, nullable = false, length = 255)
     private String title;
 
     @Column(length = 500)
