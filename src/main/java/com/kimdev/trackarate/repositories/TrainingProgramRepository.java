@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.kimdev.trackarate.models.TrainingProgram;
 
@@ -16,20 +15,39 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
 
     List<TrainingProgram> findAllByUserId(UUID id);
 
+    List<TrainingProgram> findAllByUserIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+
     List<TrainingProgram> findAllByUserUsernameContainingIgnoreCase(String username);
 
-    // second parameter is the type's name
-    List<TrainingProgram> findAllByUserSettingsIsPrivateAndProgramTypesNameContainingIgnoreCase(boolean isPrivate,
-            String name);
+    List<TrainingProgram> findAllByUserUsernameContainingIgnoreCaseAndUserSettingsIsPrivate(String username,
+            boolean isPrivate);
 
-    @Query(value = "select * from training_programs p inner join training_sessions s on p.session_id = s.id and s.name ilike :name", nativeQuery = true)
-    List<TrainingProgram> findAllByTrainingSessionNameContainingIgnoreCase(String name);
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCase(String name);
 
-    @Query(value = "select * from training_programs p inner join training_sessions s on p.session_id = s.id and s.id = :id", nativeQuery = true)
-    List<TrainingProgram> findAllByTrainingSessionId(UUID id);
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndUserSettingsIsPrivate(String name,
+            boolean isPrivate);
+
+    List<TrainingProgram> findAllByTrainingSessionsId(UUID id);
+
+    List<TrainingProgram> findAllByTrainingSessionsIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+
+    List<TrainingProgram> findAllByTrainingSessionsNameContainingIgnoreCase(String name);
+
+    List<TrainingProgram> findAllByTrainingSessionsNameContainingIgnoreCaseAndUserSettingsIsPrivate(String name,
+            boolean isPrivate);
 
     // FIND ONE
     TrainingProgram findOneById(UUID id);
 
-    TrainingProgram findOneByNameIgnoreCaseAndUserId(String name, UUID id);
+    TrainingProgram findOneByIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+
+    TrainingProgram findOneByNameContainingIgnoreCaseAndUserId(String name, UUID id);
+
+    TrainingProgram findOneByCommentsId(UUID commentId);
+
+    TrainingProgram findOneByLikesId(UUID likeId);
+
+    TrainingProgram findOneByCommentsIdAndUserSettingsIsPrivate(UUID commentId, boolean isPrivate);
+
+    TrainingProgram findOneByLikesIdAndUserSettingsIsPrivate(UUID likeId, boolean isPrivate);
 }
