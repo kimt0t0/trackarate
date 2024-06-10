@@ -27,7 +27,7 @@ public class Media extends AbstractEntity {
     private MediaType type;
 
     @ManyToOne
-    @JoinColumn(name = "id_media")
+    @JoinColumn(name = "id_user")
     private User user;
 
     @Column(nullable = false, length = 255)

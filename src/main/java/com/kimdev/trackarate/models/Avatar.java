@@ -16,6 +16,6 @@ public class Avatar extends AbstractEntity {
     private String path;
 
     @OneToOne
-    @JoinColumn(name = "avatar")
+    @JoinColumn(name = "user_id")
     private User user;
 }
