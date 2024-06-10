@@ -28,6 +28,9 @@ public class User extends AbstractEntity {
     @Column(nullable = true, unique = true, length = 14)
     private String phone;
 
+    @Column(nullable = false, length = 255)
+    private String password;
+
     @OneToOne(mappedBy = "user")
     private Settings settings;
 

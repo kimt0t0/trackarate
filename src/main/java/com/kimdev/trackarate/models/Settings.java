@@ -16,13 +16,13 @@ public class Settings extends AbstractEntity {
     private boolean isPrivate;
 
     @Column(nullable = true)
-    private boolean evaluateTrainingsPerWeek;
+    private boolean isEvaluateTrainingsPerWeek;
 
     @Column(length = 2)
     private Integer trainingsPerWeek;
 
     @Column(nullable = true)
-    private boolean evaluateTrainingsAverageDuration;
+    private boolean isEvaluateTrainingsAverageDuration;
 
     @Column(length = 3)
     private Integer trainingsAverageDuration;
