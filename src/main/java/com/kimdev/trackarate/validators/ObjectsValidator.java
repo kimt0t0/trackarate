@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.kimdev.trackarate.exceptions.ObjectsValidationException;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -22,6 +24,7 @@ public class ObjectsValidator<T> {
             Set<String> errorMessages = violations.stream()
                     .map(violation -> violation.getMessage())
                     .collect(Collectors.toSet());
+            throw new ObjectsValidationException(errorMessages, objectToValidate.getClass().getName());
         }
     }
 
