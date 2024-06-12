@@ -5,6 +5,10 @@ import java.util.UUID;
 import com.kimdev.trackarate.models.Avatar;
 import com.kimdev.trackarate.models.User;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,8 +20,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AvatarDto {
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    @Size(max = 255)
     private String path;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private UUID userId;
 
     public static AvatarDto fromEntity(Avatar avatar) {

@@ -6,6 +6,10 @@ import com.kimdev.trackarate.models.Answer;
 import com.kimdev.trackarate.models.Question;
 import com.kimdev.trackarate.models.User;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,10 +21,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AnswerDto {
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    @Size(max = 5000)
     private String text;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private UUID userId;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private UUID questionId;
 
     public static AnswerDto fromEntity(Answer answer) {

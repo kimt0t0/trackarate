@@ -9,6 +9,13 @@ import com.kimdev.trackarate.models.TrainingSession;
 import com.kimdev.trackarate.models.Type;
 import com.kimdev.trackarate.models.User;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,10 +27,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TrainingProgramDto {
 
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    @Size(min = 1, max = 20)
     private String name;
 
+    @Positive
+    @Min(5)
+    @Max(300)
     private Integer duration;
 
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private UUID userId;
 
     private List<UUID> programTypesIds;

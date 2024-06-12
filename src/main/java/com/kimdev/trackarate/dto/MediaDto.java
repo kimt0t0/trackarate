@@ -7,6 +7,10 @@ import com.kimdev.trackarate.models.Exercise;
 import com.kimdev.trackarate.models.Media;
 import com.kimdev.trackarate.models.User;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,14 +22,29 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MediaDto {
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    @Size(min = 1, max = 255)
     private String title;
 
+    @Size(max = 500)
     private String description;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    @Size(max = 10)
     private MediaType type;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private UUID userId;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private String path;
 
     private UUID exerciseId;

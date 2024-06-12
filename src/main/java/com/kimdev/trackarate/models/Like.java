@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 public class Like extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
     @ManyToOne

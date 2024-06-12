@@ -23,7 +23,7 @@ public class Type {
     @Column(name = "id", columnDefinition = "VARCHAR(255)", unique = true, nullable = false, updatable = false)
     private UUID id;
 
-    @Column(unique = true, length = 50)
+    @Column(unique = true, nullable = false, length = 50)
     private String name;
 
     @ManyToMany(mappedBy = "exerciseTypes")

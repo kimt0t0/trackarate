@@ -9,6 +9,10 @@ import com.kimdev.trackarate.models.TrainingSession;
 import com.kimdev.trackarate.models.Type;
 import com.kimdev.trackarate.models.User;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,10 +24,21 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ExerciseDto {
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    @Size(max = 120)
     private String title;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    @Size(max = 5000)
     private String description;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private UUID userId;
 
     private List<UUID> exerciseTypesIds;

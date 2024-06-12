@@ -8,6 +8,10 @@ import com.kimdev.trackarate.models.TrainingProgram;
 import com.kimdev.trackarate.models.TrainingSession;
 import com.kimdev.trackarate.models.User;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,10 +23,18 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CommentDto {
 
+    @Size(max = 120)
     private String title;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
+    @Size(max = 2000)
     private String text;
 
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private UUID userId;
 
     private UUID exerciseId;

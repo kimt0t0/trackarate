@@ -30,7 +30,7 @@ public class Settings extends AbstractEntity {
     @Column(length = 10)
     private String beltOrGrade;
 
-    @Column
+    @Column(length = 500)
     private String goals;
 
     @OneToOne
