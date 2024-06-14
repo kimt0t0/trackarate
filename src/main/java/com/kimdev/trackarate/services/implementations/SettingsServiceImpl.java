@@ -23,6 +23,21 @@ public class SettingsServiceImpl implements SettingsService {
     private final ObjectsValidator<SettingsDto> validator;
 
     @Override
+    public UUID initializeUserSettings(UUID userId) {
+        Settings settings = SettingsDto.toEntity(
+                new SettingsDto(
+                        false,
+                        true,
+                        null,
+                        true,
+                        null,
+                        null,
+                        null,
+                        userId));
+        return repository.save(settings).getId();
+    }
+
+    @Override
     public UUID save(SettingsDto dto) {
         validator.validate(dto);
         Settings settings = SettingsDto.toEntity(dto);
@@ -47,6 +62,13 @@ public class SettingsServiceImpl implements SettingsService {
     @Override
     public void delete(UUID id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public SettingsDto findOneByUserId(UUID userId) {
+        return repository.findByUserId(userId)
+                .map(SettingsDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException("Settings not found with provided user id: " + userId));
     }
 
 }

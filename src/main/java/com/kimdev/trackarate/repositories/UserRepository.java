@@ -1,10 +1,10 @@
 package com.kimdev.trackarate.repositories;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.kimdev.trackarate.models.User;
 
@@ -19,12 +19,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     List<User> findAllByUsernameContainingIgnoreCaseAndSettingsIsPrivate(String username, boolean isPrivate);
 
-    @Query(value = "select * from users where beltOrGrade ilike %:beltOrGrade%", nativeQuery = true)
-    List<User> findAllByBeltOrGradeContainingIgnoreCase(String beltOrGrade);
-
-    @Query(value = "select * from users u inner join settings s on u.id = s.user_id where (u.beltOrGrade ilike %:beltOrGrade% and s.isPrivate = :isPrivate)", nativeQuery = true)
-    List<User> findAllByBeltOrGradeContainingIgnoreCaseAndSettingsIsPrivate(String beltOrGrade, boolean isPrivate);
-
     List<User> findAllBySettingsGoalsContaining(String goals);
 
     List<User> findAllBySettingsGoalsContainingAndSettingsIsPrivate(String goals, boolean isPrivate);
@@ -37,37 +31,47 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     List<User> findAllByRoleNameAndSettingsIsPrivate(String name, boolean isPrivate);
 
-    @Query(value = "select * from users u inner join roles r on u.id and r.user_id where(u.beltOrGrade ilike %:beltOrGrade% and r.name = :name)", nativeQuery = true)
-    List<User> findAllByBeltOrGradeAndRoleName(String beltOrGrade, String name);
+    List<User> findAllBySenseiListId(UUID id);
 
-    @Query(value = "select * from users u inner join roles r inner join settings s on u.id and r.user_id and u.id = s.user_id where(u.beltOrGrade ilike %:beltOrGrade% and r.name = :name and s.isPrivate = :isPrivate)", nativeQuery = true)
-    List<User> findAllByBeltOrGradeAndRoleNameAndSettingsIsPrivate(String beltOrGrade, String name,
-            boolean isPrivate);
+    List<User> findAllBySenseiListIdAndSettingsIsPrivate(UUID id, boolean isPrivate);
 
-    List<User> findAllBySenseiListUsernameAndSettingsIsPrivate(String username, boolean isPrivate);
+    List<User> findAllBySenseiListUsernameIgnoreCase(String name);
+
+    List<User> findAllBySenseiListUsernameIgnoreCaseAndSettingsIsPrivate(String name, boolean isPrivate);
+
+    List<User> findAllByStudentsListId(UUID id);
+
+    List<User> findAllByStudentsListIdAndSettingsIsPrivate(UUID id, boolean isPrivate);
 
     List<User> findAllByStudentsListUsername(String username);
 
     List<User> findAllByStudentsListUsernameAndSettingsIsPrivate(String username, boolean isPrivate);
+
+    List<User> findAllByContactsListId(UUID id);
+
+    List<User> findAllByContactsListIdAndSettingsIsPrivate(UUID id, boolean isPrivate);
 
     List<User> findAllByContactsListUsername(String username);
 
     List<User> findAllByContactsListUsernameAndSettingsIsPrivate(String username, boolean isPrivate);
 
     // FIND ONE
-    User findOneById(UUID id);
+    @SuppressWarnings("null")
+    Optional<User> findById(UUID id);
 
-    User findOneByIdAndSettingsIsPrivate(UUID id, boolean isPrivate);
+    @SuppressWarnings("null")
+    Optional<User> findByIdAndSettingsIsPrivate(UUID id, boolean isPrivate);
 
-    User findOneByUsernameContainingIgnoreCase(String username);
+    @SuppressWarnings("null")
+    Optional<User> findByUsernameContainingIgnoreCase(String username);
 
-    User findOneByUsernameContainingIgnoreCaseAndSettingsIsPrivate(String username, boolean isPrivate);
+    @SuppressWarnings("null")
+    Optional<User> findByUsernameContainingIgnoreCaseAndSettingsIsPrivate(String username, boolean isPrivate);
 
-    User findOneByEmail(String email);
+    @SuppressWarnings("null")
+    Optional<User> findByEmail(String email);
 
-    User findOneByEmailAndSettingsIsPrivate(String email, boolean isPrivate);
+    @SuppressWarnings("null")
+    Optional<User> findByEmailAndSettingsIsPrivate(String email, boolean isPrivate);
 
-    User findOneByMediaListUserId(UUID id);
-
-    User findOneByMediaListUserIdAndSettingsIsPrivate(UUID id, boolean isPrivate);
 }

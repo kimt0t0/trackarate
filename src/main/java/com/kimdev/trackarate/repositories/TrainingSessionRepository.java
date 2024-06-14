@@ -22,6 +22,8 @@ public interface TrainingSessionRepository extends JpaRepository<TrainingSession
     List<TrainingSession> findAllByUserSettingsIsPrivateAndSessionTypesNameContainingIgnoreCase(boolean isPrivate,
             String name);
 
+    List<TrainingSession> findAllByUserId(UUID id);
+
     List<TrainingSession> findAllByNameContainingIgnoreCaseAndUserId(String name, UUID id);
 
     List<TrainingSession> findAllByNameContainingIgnoreCaseAndUserIdAndUserSettingsIsPrivate(String name, UUID id,

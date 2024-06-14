@@ -49,4 +49,12 @@ public class TrainingSessionServiceImpl implements TrainingSessionService {
         repository.deleteById(id);
     }
 
+    @Override
+    public List<TrainingSessionDto> findAllByUserId(UUID userId) {
+        return repository.findAllByUserId(userId)
+                .stream()
+                .map(TrainingSessionDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
 }
