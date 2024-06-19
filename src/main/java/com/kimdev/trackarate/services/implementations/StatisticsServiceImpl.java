@@ -1,19 +1,31 @@
 package com.kimdev.trackarate.services.implementations;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import com.kimdev.trackarate.enums.TrainingFeeling;
 import com.kimdev.trackarate.enums.TrainingState;
+import com.kimdev.trackarate.repositories.CommentRepository;
 import com.kimdev.trackarate.repositories.ExerciseRepository;
+import com.kimdev.trackarate.repositories.LikeRepository;
 import com.kimdev.trackarate.repositories.TrainingProgramRepository;
 import com.kimdev.trackarate.repositories.TrainingSessionRepository;
 import com.kimdev.trackarate.services.StatisticsService;
 
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
 public class StatisticsServiceImpl implements StatisticsService {
 
+    private final CommentRepository commentRepository;
     private final ExerciseRepository exerciseRepository;
+    private final LikeRepository likeRepository;
     private final TrainingSessionRepository sessionRepository;
     private final TrainingProgramRepository programRepository;
 
@@ -173,74 +185,74 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public Integer getExerciseLikesCount(UUID exerciseId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getExerciseLikesCount'");
+        return likeRepository.findAllByExerciseId(exerciseId).size();
     }
 
     @Override
     public Integer getExerciseCommentsCount(UUID exerciseId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getExerciseCommentsCount'");
+        return commentRepository.findAllByExerciseId(exerciseId).size();
     }
 
     @Override
     public Integer getSessionLikesCount(UUID sessionId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSessionLikesCount'");
+        return likeRepository.findAllByTrainingSessionId(sessionId).size();
     }
 
     @Override
     public Integer getSessionCommentsCount(UUID sessionId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSessionCommentsCount'");
+        return commentRepository.findAllByTrainingSessionId(sessionId).size();
     }
 
     @Override
     public Integer getProgramLikesCount(UUID programId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProgramLikesCount'");
+        return likeRepository.findAllByTrainingProgramId(programId).size();
     }
 
     @Override
     public Integer getProgramCommentsCount(UUID programId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProgramCommentsCount'");
+        return commentRepository.findAllByTrainingProgramId(programId).size();
     }
 
     @Override
-    public Integer getUserExercisesPast(UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserExercisesPast'");
+    public Integer getExercisesCompletedCount() {
+        return exerciseRepository.findAllByState(TrainingState.DONE).size();
+    };
+
+    @Override
+    public Integer getSessionsPastCount() {
+        ZonedDateTime now = ZonedDateTime.now();
+        return sessionRepository.findAllByDatetimeBefore(now).size();
+    };
+
+    @Override
+    public Integer getProgramsPastCount() {
+        Date now = new Date();
+        return programRepository.findAllByEndDateBefore(now).size();
+    };
+
+    @Override
+    public Integer getUserSessionsPastCount(UUID userId) {
+        return sessionRepository.findAllByStateAndUserId(TrainingState.DONE, userId).size();
     }
 
     @Override
-    public Integer getUserSessionsPast(UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserSessionsPast'");
+    public Integer getUserProgramsPastCount(UUID userId) {
+        return programRepository.findAllByStateAndUserId(TrainingState.DONE, userId).size();
     }
 
     @Override
-    public Integer getUserProgramsPast(UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserProgramsPast'");
+    public Integer getUserProgramsCompletedCount(UUID userId) {
+        return programRepository.findAllByStateAndUserId(TrainingState.DONE, userId).size();
     }
 
     @Override
-    public Integer getUserProgramsCompleted(UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserProgramsCompleted'");
+    public Integer getUserSessionsCompletedCount(UUID userId) {
+        return sessionRepository.findAllByStateAndUserId(TrainingState.DONE, userId).size();
     }
 
     @Override
-    public Integer getUserSessionsCompleted(UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserSessionsCompleted'");
-    }
-
-    @Override
-    public Integer getUserExercisesCompleted(UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserExercisesCompleted'");
+    public Integer getUserExercisesCompletedCount(UUID userId) {
+        return exerciseRepository.findAllByStateAndUserId(TrainingState.DONE, userId).size();
     }
 
 }

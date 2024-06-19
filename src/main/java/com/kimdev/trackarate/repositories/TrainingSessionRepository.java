@@ -1,5 +1,6 @@
 package com.kimdev.trackarate.repositories;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +16,12 @@ public interface TrainingSessionRepository extends JpaRepository<TrainingSession
     List<TrainingSession> findAllByUserUsername(String username);
 
     List<TrainingSession> findAllBySessionTypesId(UUID id);
+
+    List<TrainingSession> findAllByDatetime(ZonedDateTime datetime);
+
+    List<TrainingSession> findAllByDatetimeBefore(ZonedDateTime datetime);
+
+    List<TrainingSession> findAllByDatetimeAfter(ZonedDateTime datetime);
 
     List<TrainingSession> findAllBySessionTypesNameContainingIgnoreCase(String name);
 

@@ -1,6 +1,6 @@
 package com.kimdev.trackarate.dto;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -50,7 +50,7 @@ public class TrainingSessionDto {
     private TrainingFeeling feeling;
 
     @PastOrPresent
-    private LocalDateTime datetime;
+    private ZonedDateTime datetime;
 
     @NotNull
     @NotEmpty

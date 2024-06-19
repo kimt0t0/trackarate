@@ -1,6 +1,6 @@
 package com.kimdev.trackarate.models;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import com.kimdev.trackarate.enums.TrainingFeeling;
@@ -15,6 +15,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
@@ -38,7 +40,8 @@ public class TrainingSession extends AbstractEntity {
     private TrainingFeeling feeling;
 
     @Column
-    private LocalDateTime datetime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private ZonedDateTime datetime;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

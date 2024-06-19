@@ -35,6 +35,8 @@ public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
 
     List<Exercise> findAllByTrainingSessionsName(String name);
 
+    List<Exercise> findAllByState(TrainingState state);
+
     List<Exercise> findAllByStateAndUserSettingsIsPrivate(TrainingState state, boolean isPrivate);
 
     List<Exercise> findAllByStateAndUserId(TrainingState state, UUID id);

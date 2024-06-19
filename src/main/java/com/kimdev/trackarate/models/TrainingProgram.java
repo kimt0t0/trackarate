@@ -1,5 +1,6 @@
 package com.kimdev.trackarate.models;
 
+import java.util.Date;
 import java.util.List;
 
 import com.kimdev.trackarate.enums.TrainingFeeling;
@@ -14,6 +15,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
@@ -35,6 +38,14 @@ public class TrainingProgram extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = true, length = 15)
     private TrainingFeeling feeling;
+
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = true)
+    private Date startDate;
+
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = true)
+    private Date endDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

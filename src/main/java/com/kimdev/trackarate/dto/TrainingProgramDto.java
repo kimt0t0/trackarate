@@ -1,8 +1,11 @@
 package com.kimdev.trackarate.dto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import org.springframework.data.annotation.CreatedDate;
 
 import com.kimdev.trackarate.enums.TrainingFeeling;
 import com.kimdev.trackarate.enums.TrainingState;
@@ -46,6 +49,12 @@ public class TrainingProgramDto {
     @Size(min = 1, max = 15)
     private TrainingFeeling feeling;
 
+    @CreatedDate
+    private Date startDate;
+
+    @CreatedDate
+    private Date endDate;
+
     @NotNull
     @NotEmpty
     @NotBlank
@@ -59,6 +68,10 @@ public class TrainingProgramDto {
         return TrainingProgramDto.builder()
                 .name(program.getName())
                 .duration(program.getDuration())
+                .state(program.getState())
+                .feeling(program.getFeeling())
+                .startDate(program.getStartDate())
+                .endDate(program.getEndDate())
                 .userId(program.getUser().getId())
                 .programTypesIds(
                         program.getProgramTypes()
@@ -77,6 +90,10 @@ public class TrainingProgramDto {
         TrainingProgram trainingProgram = TrainingProgram.builder()
                 .name(programDto.getName())
                 .duration(programDto.getDuration())
+                .state(programDto.getState())
+                .feeling(programDto.getFeeling())
+                .startDate(programDto.getStartDate())
+                .endDate(programDto.getEndDate())
                 .user(
                         User.builder()
                                 .id(programDto.userId)

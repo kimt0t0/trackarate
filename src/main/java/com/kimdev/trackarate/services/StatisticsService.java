@@ -73,16 +73,20 @@ public interface StatisticsService {
 
     Integer getProgramCommentsCount(UUID programId);
 
-    Integer getUserExercisesPast(UUID userId);
+    Integer getExercisesCompletedCount();
 
-    Integer getUserSessionsPast(UUID userId);
+    Integer getSessionsPastCount();
 
-    Integer getUserProgramsPast(UUID userId);
+    Integer getProgramsPastCount();
 
-    Integer getUserProgramsCompleted(UUID userId);
+    Integer getUserSessionsPastCount(UUID userId);
 
-    Integer getUserSessionsCompleted(UUID userId);
+    Integer getUserProgramsPastCount(UUID userId);
 
-    Integer getUserExercisesCompleted(UUID userId);
+    Integer getUserProgramsCompletedCount(UUID userId);
+
+    Integer getUserSessionsCompletedCount(UUID userId);
+
+    Integer getUserExercisesCompletedCount(UUID userId);
 
 }

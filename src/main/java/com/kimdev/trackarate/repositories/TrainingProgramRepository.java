@@ -1,5 +1,6 @@
 package com.kimdev.trackarate.repositories;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +17,23 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
     List<TrainingProgram> findAllByUserSettingsIsPrivate(boolean isPrivate);
 
     List<TrainingProgram> findAllByUserId(UUID id);
+
+    List<TrainingProgram> findAllByEndDateBefore(Date endDate); // finished programs
+
+    List<TrainingProgram> findAllByStartDateAfter(Date startDate); // not started yet programs
+
+    List<TrainingProgram> findAllByStartDateAfterAndEndDateBefore(Date startDate, Date enDate); // started but not
+                                                                                                // finished programs
+
+    List<TrainingProgram> findAllByUserIdAndEndDateBefore(UUID id, Date endDate); // finished programs
+
+    List<TrainingProgram> findAllByUserIdAndStartDateAfter(UUID id, Date startDate); // not started yet programs
+
+    List<TrainingProgram> findAllByUserIdAndStartDateAfterAndEndDateBefore(UUID id, Date startDate, Date enDate); // started
+                                                                                                                  // but
+                                                                                                                  // not
+                                                                                                                  // finished
+                                                                                                                  // programs
 
     List<TrainingProgram> findAllByUserIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
 
