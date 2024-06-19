@@ -3,8 +3,13 @@ package com.kimdev.trackarate.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.kimdev.trackarate.enums.TrainingFeeling;
+import com.kimdev.trackarate.enums.TrainingState;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -23,6 +28,14 @@ public class TrainingSession extends AbstractEntity {
 
     @Column(length = 3)
     private Integer duration;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true, length = 15)
+    private TrainingState state;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true, length = 15)
+    private TrainingFeeling feeling;
 
     @Column
     private LocalDateTime datetime;

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.kimdev.trackarate.enums.TrainingFeeling;
+import com.kimdev.trackarate.enums.TrainingState;
 import com.kimdev.trackarate.models.Exercise;
 import com.kimdev.trackarate.models.TrainingSession;
 import com.kimdev.trackarate.models.Type;
@@ -35,6 +37,12 @@ public class ExerciseDto {
     @NotEmpty
     @Size(max = 5000)
     private String description;
+
+    @Size(min = 1, max = 15)
+    private TrainingState state;
+
+    @Size(min = 1, max = 15)
+    private TrainingFeeling feeling;
 
     @NotNull
     @NotBlank

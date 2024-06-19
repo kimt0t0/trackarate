@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.kimdev.trackarate.enums.TrainingFeeling;
+import com.kimdev.trackarate.enums.TrainingState;
 import com.kimdev.trackarate.models.TrainingProgram;
 
 public interface TrainingProgramRepository extends JpaRepository<TrainingProgram, UUID> {
@@ -35,6 +37,39 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
 
     List<TrainingProgram> findAllByTrainingSessionsNameContainingIgnoreCaseAndUserSettingsIsPrivate(String name,
             boolean isPrivate);
+
+    List<TrainingProgram> findAllByStateAndUserSettingsIsPrivate(TrainingState state, boolean isPrivate);
+
+    List<TrainingProgram> findAllByStateAndUserId(TrainingState state, UUID id);
+
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndUserSettingsIsPrivate(String name,
+            TrainingState state, boolean isPrivate);
+
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndUserId(String name,
+            TrainingState state, UUID id);
+
+    List<TrainingProgram> findAllByFeelingAndUserSettingsIsPrivate(TrainingFeeling feeling, boolean isPrivate);
+
+    List<TrainingProgram> findAllByFeelingAndUserId(TrainingFeeling feeling, UUID id);
+
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndFeelingAndUserSettingsIsPrivate(
+            String name,
+            TrainingFeeling feeling, boolean isPrivate);
+
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndFeelingAndUserId(String name,
+            TrainingFeeling feeling, UUID id);
+
+    List<TrainingProgram> findAllByStateAndFeelingAndUserSettingsIsPrivate(TrainingState state, TrainingFeeling feeling,
+            boolean isPrivate);
+
+    List<TrainingProgram> findAllByStateAndFeelingAndUserId(TrainingState state, TrainingFeeling feeling, UUID id);
+
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndFeelingAndUserSettingsIsPrivate(
+            String name,
+            TrainingState state, TrainingFeeling feeling, boolean isPrivate);
+
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndFeelingAndUserId(String name,
+            TrainingState state, TrainingFeeling feeling, UUID id);
 
     // FIND ONE
     TrainingProgram findOneById(UUID id);

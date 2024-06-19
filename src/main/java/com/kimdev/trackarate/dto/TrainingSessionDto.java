@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.kimdev.trackarate.enums.TrainingFeeling;
+import com.kimdev.trackarate.enums.TrainingState;
 import com.kimdev.trackarate.models.Exercise;
 import com.kimdev.trackarate.models.TrainingProgram;
 import com.kimdev.trackarate.models.TrainingSession;
@@ -40,6 +42,12 @@ public class TrainingSessionDto {
     @Min(value = 5)
     @Max(value = 300)
     private Integer duration;
+
+    @Size(min = 1, max = 15)
+    private TrainingState state;
+
+    @Size(min = 1, max = 15)
+    private TrainingFeeling feeling;
 
     @PastOrPresent
     private LocalDateTime datetime;
