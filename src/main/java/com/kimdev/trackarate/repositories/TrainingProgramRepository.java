@@ -2,9 +2,11 @@ package com.kimdev.trackarate.repositories;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.kimdev.trackarate.enums.TrainingFeeling;
 import com.kimdev.trackarate.enums.TrainingState;
@@ -88,6 +90,19 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
 
     List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndFeelingAndUserId(String name,
             TrainingState state, TrainingFeeling feeling, UUID id);
+
+    // COUNT
+    @Query(value = "select state, count(*) from training_programs", nativeQuery = true)
+    Map<TrainingState, Integer> findCountProgramsByState();
+
+    @Query(value = "select state, count(*) from training_programs p inner join users u on p.user_id = u.id where u.id = :userId", nativeQuery = true)
+    Map<TrainingState, Integer> findCountProgramsByUserAndState(UUID userId);
+
+    @Query(value = "select feeling, count(*) from training_programs", nativeQuery = true)
+    Map<TrainingState, Integer> findCountProgramsByFeeling();
+
+    @Query(value = "select feeling, count(*) from training_programs p inner join users u on p.user_id = u.id where u.id = :userId", nativeQuery = true)
+    Map<TrainingState, Integer> findCountProgramsByUserAndFeeling(UUID userId);
 
     // FIND ONE
     TrainingProgram findOneById(UUID id);

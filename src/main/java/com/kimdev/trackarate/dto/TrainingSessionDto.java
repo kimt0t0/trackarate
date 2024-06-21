@@ -67,6 +67,8 @@ public class TrainingSessionDto {
         return TrainingSessionDto.builder()
                 .name(session.getName())
                 .duration(session.getDuration())
+                .state(session.getState())
+                .feeling(session.getFeeling())
                 .datetime(session.getDatetime())
                 .userId(session.getUser().getId())
                 .sessionTypesIds(
@@ -91,6 +93,8 @@ public class TrainingSessionDto {
         TrainingSession trainingSession = TrainingSession.builder()
                 .name(sessionDto.getName())
                 .duration(sessionDto.getDuration())
+                .state(sessionDto.getState())
+                .feeling(sessionDto.getFeeling())
                 .datetime(sessionDto.getDatetime())
                 .user(
                         User.builder()

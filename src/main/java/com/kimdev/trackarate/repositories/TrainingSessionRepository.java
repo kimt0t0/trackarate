@@ -2,9 +2,11 @@ package com.kimdev.trackarate.repositories;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.kimdev.trackarate.enums.TrainingFeeling;
 import com.kimdev.trackarate.enums.TrainingState;
@@ -18,6 +20,11 @@ public interface TrainingSessionRepository extends JpaRepository<TrainingSession
     List<TrainingSession> findAllBySessionTypesId(UUID id);
 
     List<TrainingSession> findAllByDatetime(ZonedDateTime datetime);
+
+    List<TrainingSession> findAllByDatetimeAndUserId(ZonedDateTime datetime, UUID id);
+
+    List<TrainingSession> findAllByDatetimeAndUserIdAndUserSettingsIsPrivate(ZonedDateTime datetime, UUID id,
+            boolean isPrivate);
 
     List<TrainingSession> findAllByDatetimeBefore(ZonedDateTime datetime);
 
@@ -88,6 +95,30 @@ public interface TrainingSessionRepository extends JpaRepository<TrainingSession
 
     List<TrainingSession> findAllByTrainingProgramsNameContainingIgnoreCaseAndStateAndFeelingAndUserId(String name,
             TrainingState state, TrainingFeeling feeling, UUID id);
+
+    // COUNT
+    @Query(value = "select s.datetime, count(*) from training_sessions s where s.datetime = :datetime", nativeQuery = true)
+    Map<ZonedDateTime, Integer> findCountTrainingSessionsByDate(ZonedDateTime datetime);
+
+    @Query(value = "select s.datetime, count(*) from training_sessions s inner join users u on u.id = s.user_id  where ((u.id = :id) and (s.datetime = :datetime))", nativeQuery = true)
+    Map<ZonedDateTime, Integer> findCountTrainingSessionsByDatetimeAndUserId(ZonedDateTime datetime, UUID id);
+
+    @Query(value = "select s.datetime, count(*) from training_sessions s inner join users u inner join settings se on u.id = s.user_id and u.id = se.user_id where ((u.id = :id) and (se.isPrivate = :isPrivate) and (s.datetime = :datetime))", nativeQuery = true)
+    Map<ZonedDateTime, Integer> findCountTrainingSessionsByDatetimeAndUserIdAndUserSettingsIsPrivate(
+            ZonedDateTime datetime, UUID id,
+            boolean isPrivate);
+
+    @Query(value = "select state, count(*) from training_sessions", nativeQuery = true)
+    Map<TrainingState, Integer> findCountSessionsByState();
+
+    @Query(value = "select state, count(*) from training_sessions s inner join users u on s.user_id = u.id where u.id = :userId", nativeQuery = true)
+    Map<TrainingState, Integer> findCountSessionsByUserAndState(UUID userId);
+
+    @Query(value = "select feeling, count(*) from training_sessions", nativeQuery = true)
+    Map<TrainingState, Integer> findCountSessionsByFeeling();
+
+    @Query(value = "select feeling, count(*) from training_sessions s inner join users u on s.user_id = u.id where u.id = :userId", nativeQuery = true)
+    Map<TrainingState, Integer> findCountSessionsByUserAndFeeling(UUID userId);
 
     // FIND ONE
     TrainingSession findOneById(UUID id);

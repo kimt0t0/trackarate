@@ -1,65 +1,69 @@
 package com.kimdev.trackarate.services;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.UUID;
 
-import com.kimdev.trackarate.enums.TrainingFeeling;
 import com.kimdev.trackarate.enums.TrainingState;
 
 public interface StatisticsService {
 
-    Map<LocalDate, Integer> findSumTrainingSessionsByDate(LocalDate startDate, LocalDate endDate);
+    Map<ZonedDateTime, Integer> findCountTrainingSessionsByDate(ZonedDateTime datetime);
 
-    Map<LocalDate, Integer> findUserSumTrainingSessionsByDate(LocalDate startDate, LocalDate endDate, UUID userId);
+    Map<ZonedDateTime, Integer> findUserCountTrainingSessionsByDate(ZonedDateTime datetime, UUID userId);
 
-    Map<LocalDate, Integer> findUserSumExercisesByDate(LocalDate startDate, LocalDate endDate, UUID userId);
+    Map<ZonedDateTime, Integer> findUserCountExercisesByDate(ZonedDateTime datetime, UUID userId);
 
-    Map<LocalDate, Integer> findSumLikesByDate(LocalDate startDate, LocalDate endDate);
+    Map<LocalDate, Integer> findCountLikesByDate(LocalDate startDate, LocalDate endDate);
 
-    Map<LocalDate, Integer> findUserSumLikesByDate(LocalDate startDate, LocalDate endDate, UUID userId);
+    Map<LocalDate, Integer> findUserCountLikesByDate(LocalDate startDate, LocalDate endDate, UUID userId);
 
-    Map<LocalDate, Integer> findSumCommentsByDate(LocalDate startDate, LocalDate endDate);
+    Map<LocalDate, Integer> findCountCommentsByDate(LocalDate startDate, LocalDate endDate);
 
-    Map<LocalDate, Integer> findUserSumCommentsByDate(LocalDate startDate, LocalDate endDate, UUID userId);
+    Map<LocalDate, Integer> findUserCountCommentsByDate(LocalDate startDate, LocalDate endDate, UUID userId);
 
-    Map<LocalDate, Integer> findExerciseSumLikesByDate(LocalDate startDate, LocalDate endDate, UUID exerciseId);
+    Map<LocalDate, Integer> findExerciseCountLikesByDate(LocalDate startDate, LocalDate endDate, UUID exerciseId);
 
-    Map<LocalDate, Integer> findExerciseSumCommentsByDate(LocalDate startDate, LocalDate endDate, UUID exerciseId);
+    Map<LocalDate, Integer> findExerciseCountCommentsByDate(LocalDate startDate, LocalDate endDate, UUID exerciseId);
 
-    Map<LocalDate, Integer> findSessionSumLikesByDate(LocalDate startDate, LocalDate endDate, UUID sessionId);
+    Map<LocalDate, Integer> findSessionCountLikesByDate(LocalDate startDate, LocalDate endDate, UUID sessionId);
 
-    Map<LocalDate, Integer> findSessionSumCommentsByDate(LocalDate startDate, LocalDate endDate, UUID sessionId);
+    Map<LocalDate, Integer> findSessionCountCommentsByDate(LocalDate startDate, LocalDate endDate, UUID sessionId);
 
-    Map<LocalDate, Integer> findProgramSumLikesByDate(LocalDate startDate, LocalDate endDate, UUID programId);
+    Map<LocalDate, Integer> findProgramCountLikesByDate(LocalDate startDate, LocalDate endDate, UUID programId);
 
-    Map<LocalDate, Integer> findProgramSumCommentsByDate(LocalDate startDate, LocalDate endDate, UUID programId);
+    Map<LocalDate, Integer> findProgramCountCommentsByDate(LocalDate startDate, LocalDate endDate, UUID programId);
 
-    Map<TrainingState, Integer> findSumProgramsByState(TrainingState state);
+    Map<TrainingState, Integer> findCountProgramsByState();
 
-    Map<TrainingState, Integer> findSumProgramsByUserAndState(UUID userId, TrainingState state);
+    Map<TrainingState, Integer> findCountProgramsByUserAndState(UUID userId);
 
-    Map<TrainingState, Integer> findSumProgramsByFeeling(TrainingFeeling feeling);
+    Map<TrainingState, Integer> findCountProgramsByFeeling();
 
-    Map<TrainingState, Integer> findSumProgramsByUserAndFeeling(UUID userId, TrainingFeeling feeling);
+    Map<TrainingState, Integer> findCountProgramsByUserAndFeeling(UUID userId);
 
-    Map<TrainingState, Integer> findSumSessionsByState(TrainingState state);
+    Map<TrainingState, Integer> findCountSessionsByState();
 
-    Map<TrainingState, Integer> findSumSessionsByUserAndState(UUID userId, TrainingState state);
+    Map<TrainingState, Integer> findCountSessionsByUserAndState(UUID userId);
 
-    Map<TrainingState, Integer> findSumSessionsByFeeling(TrainingFeeling feeling);
+    Map<TrainingState, Integer> findCountSessionsByFeeling();
 
-    Map<TrainingState, Integer> findSumSessionsByUserAndFeeling(UUID userId, TrainingFeeling feeling);
+    Map<TrainingState, Integer> findCountSessionsByUserAndFeeling(UUID userId);
 
-    Map<TrainingState, Integer> findSumExercisesByState(TrainingState state);
+    Map<TrainingState, Integer> findCountExercisesByState();
 
-    Map<TrainingState, Integer> findSumExercisesByUserAndState(UUID userId, TrainingState state);
+    Map<TrainingState, Integer> findCountExercisesByUserAndState(UUID userId);
 
-    Map<TrainingState, Integer> findSumExercisesByFeeling(TrainingFeeling feeling);
+    Map<TrainingState, Integer> findCountExercisesByFeeling();
 
-    Map<TrainingState, Integer> findSumExercisesByUserAndFeeling(UUID userId, TrainingFeeling feeling);
+    Map<TrainingState, Integer> findCountExercisesByUserAndFeeling(UUID userId);
 
     //
+
+    Integer getUsersCount();
+
+    Integer getUsersCountByRole(UUID roleId);
 
     Integer getExerciseLikesCount(UUID exerciseId);
 

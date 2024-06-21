@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.kimdev.trackarate.models.User;
 
@@ -54,6 +55,13 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     List<User> findAllByContactsListUsername(String username);
 
     List<User> findAllByContactsListUsernameAndSettingsIsPrivate(String username, boolean isPrivate);
+
+    // COUNTS
+    @Query(value = "select count(*) from users", nativeQuery = true)
+    Integer getUsersCount();
+
+    @Query(value = "select count(u) from users u inner join role r on u.role_id = r.id where r.id = :roleId", nativeQuery = true)
+    Integer getUsersCountByRole(UUID roleId);
 
     // FIND ONE
     @SuppressWarnings("null")

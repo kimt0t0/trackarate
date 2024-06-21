@@ -1,6 +1,8 @@
 package com.kimdev.trackarate.repositories;
 
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -69,6 +71,23 @@ public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
 
     List<Exercise> findAllByTrainingSessionsNameContainingIgnoreCaseAndStateAndFeelingAndUserId(String name,
             TrainingState state, TrainingFeeling feeling, UUID id);
+
+    // COUNT
+    @Query(value = "select s.datetime, count(e) from exercise e inner join training_sessions s inner join user u on e.session_id = s.id and session.user_id = u.id where((u.id = :userId) and (s.datetime = :datetime))", nativeQuery = true)
+    Map<ZonedDateTime, Integer> findUserCountExercisesByDate(ZonedDateTime datetime, UUID userId);
+
+    //
+    @Query(value = "select state, count(*) from exercises", nativeQuery = true)
+    Map<TrainingState, Integer> findCountExercisesByState();
+
+    @Query(value = "select state, count(*) from exercises e inner join users u on e.user_id = u.id where u.id = :userId", nativeQuery = true)
+    Map<TrainingState, Integer> findCountExercisesByUserAndState(UUID userId);
+
+    @Query(value = "select feeling, count(*) from exercises", nativeQuery = true)
+    Map<TrainingState, Integer> findCountExercisesByFeeling();
+
+    @Query(value = "select feeling, count(*) from exercises e inner join users u on e.user_id = u.id where u.id = :userId", nativeQuery = true)
+    Map<TrainingState, Integer> findCountExercisesByUserAndFeeling(UUID userId);
 
     // GET ONE
     Exercise findOneById(UUID id);

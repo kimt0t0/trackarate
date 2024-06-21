@@ -57,6 +57,8 @@ public class ExerciseDto {
         return ExerciseDto.builder()
                 .title(exercise.getTitle())
                 .description(exercise.getDescription())
+                .state(exercise.getState())
+                .feeling(exercise.getFeeling())
                 .userId(exercise.getUser().getId())
                 .exerciseTypesIds(
                         exercise.getExerciseTypes()
@@ -75,6 +77,8 @@ public class ExerciseDto {
         Exercise exercise = Exercise.builder()
                 .title(exerciseDto.getTitle())
                 .description(exerciseDto.getDescription())
+                .state(exerciseDto.getState())
+                .feeling(exerciseDto.getFeeling())
                 .user(
                         User.builder()
                                 .id(exerciseDto.userId)

@@ -8,13 +8,13 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.kimdev.trackarate.enums.TrainingFeeling;
 import com.kimdev.trackarate.enums.TrainingState;
 import com.kimdev.trackarate.repositories.CommentRepository;
 import com.kimdev.trackarate.repositories.ExerciseRepository;
 import com.kimdev.trackarate.repositories.LikeRepository;
 import com.kimdev.trackarate.repositories.TrainingProgramRepository;
 import com.kimdev.trackarate.repositories.TrainingSessionRepository;
+import com.kimdev.trackarate.repositories.UserRepository;
 import com.kimdev.trackarate.services.StatisticsService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,159 +28,147 @@ public class StatisticsServiceImpl implements StatisticsService {
     private final LikeRepository likeRepository;
     private final TrainingSessionRepository sessionRepository;
     private final TrainingProgramRepository programRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public Map<LocalDate, Integer> findSumTrainingSessionsByDate(LocalDate startDate, LocalDate endDate) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumTrainingSessionsByDate'");
+    public Map<ZonedDateTime, Integer> findCountTrainingSessionsByDate(ZonedDateTime datetime) {
+        return sessionRepository.findCountTrainingSessionsByDate(datetime);
     }
 
     @Override
-    public Map<LocalDate, Integer> findUserSumTrainingSessionsByDate(LocalDate startDate, LocalDate endDate,
+    public Map<ZonedDateTime, Integer> findUserCountTrainingSessionsByDate(
+            ZonedDateTime datetime,
             UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findUserSumTrainingSessionsByDate'");
+        return sessionRepository.findCountTrainingSessionsByDatetimeAndUserId(datetime, userId);
     }
 
     @Override
-    public Map<LocalDate, Integer> findUserSumExercisesByDate(LocalDate startDate, LocalDate endDate, UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findUserSumExercisesByDate'");
+    public Map<ZonedDateTime, Integer> findUserCountExercisesByDate(ZonedDateTime datetime, UUID userId) {
+        return exerciseRepository.findUserCountExercisesByDate(datetime, userId);
     }
 
     @Override
-    public Map<LocalDate, Integer> findSumLikesByDate(LocalDate startDate, LocalDate endDate) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumLikesByDate'");
+    public Map<LocalDate, Integer> findCountLikesByDate(LocalDate startDate, LocalDate endDate) {
+        return likeRepository.findCountLikesByDate(startDate, endDate);
     }
 
     @Override
-    public Map<LocalDate, Integer> findUserSumLikesByDate(LocalDate startDate, LocalDate endDate, UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findUserSumLikesByDate'");
+    public Map<LocalDate, Integer> findUserCountLikesByDate(LocalDate startDate, LocalDate endDate, UUID userId) {
+        return likeRepository.findUserCountLikesByDate(startDate, endDate, userId);
     }
 
     @Override
-    public Map<LocalDate, Integer> findSumCommentsByDate(LocalDate startDate, LocalDate endDate) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumCommentsByDate'");
+    public Map<LocalDate, Integer> findCountCommentsByDate(LocalDate startDate, LocalDate endDate) {
+        return commentRepository.findCountCommentsByDate(startDate, endDate);
     }
 
     @Override
-    public Map<LocalDate, Integer> findUserSumCommentsByDate(LocalDate startDate, LocalDate endDate, UUID userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findUserSumCommentsByDate'");
+    public Map<LocalDate, Integer> findUserCountCommentsByDate(LocalDate startDate, LocalDate endDate, UUID userId) {
+        return commentRepository.findUserCountCommentsByDate(startDate, endDate, userId);
     }
 
     @Override
-    public Map<LocalDate, Integer> findExerciseSumLikesByDate(LocalDate startDate, LocalDate endDate, UUID exerciseId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findExerciseSumLikesByDate'");
-    }
-
-    @Override
-    public Map<LocalDate, Integer> findExerciseSumCommentsByDate(LocalDate startDate, LocalDate endDate,
+    public Map<LocalDate, Integer> findExerciseCountLikesByDate(LocalDate startDate, LocalDate endDate,
             UUID exerciseId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findExerciseSumCommentsByDate'");
+        return likeRepository.findExerciseCountLikesByDate(startDate, endDate, exerciseId);
     }
 
     @Override
-    public Map<LocalDate, Integer> findSessionSumLikesByDate(LocalDate startDate, LocalDate endDate, UUID sessionId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSessionSumLikesByDate'");
+    public Map<LocalDate, Integer> findExerciseCountCommentsByDate(LocalDate startDate, LocalDate endDate,
+            UUID exerciseId) {
+        return commentRepository.findExerciseCountCommentsByDate(startDate, endDate, exerciseId);
     }
 
     @Override
-    public Map<LocalDate, Integer> findSessionSumCommentsByDate(LocalDate startDate, LocalDate endDate,
+    public Map<LocalDate, Integer> findSessionCountLikesByDate(LocalDate startDate, LocalDate endDate, UUID sessionId) {
+        return likeRepository.findSessionCountLikesByDate(startDate, endDate, sessionId);
+    }
+
+    @Override
+    public Map<LocalDate, Integer> findSessionCountCommentsByDate(LocalDate startDate, LocalDate endDate,
             UUID sessionId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSessionSumCommentsByDate'");
+        return commentRepository.findSessionCountCommentsByDate(startDate, endDate, sessionId);
     }
 
     @Override
-    public Map<LocalDate, Integer> findProgramSumLikesByDate(LocalDate startDate, LocalDate endDate, UUID programId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findProgramSumLikesByDate'");
+    public Map<LocalDate, Integer> findProgramCountLikesByDate(LocalDate startDate, LocalDate endDate, UUID programId) {
+        return likeRepository.findProgramCountLikesByDate(startDate, endDate, programId);
     }
 
     @Override
-    public Map<LocalDate, Integer> findProgramSumCommentsByDate(LocalDate startDate, LocalDate endDate,
+    public Map<LocalDate, Integer> findProgramCountCommentsByDate(LocalDate startDate, LocalDate endDate,
             UUID programId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findProgramSumCommentsByDate'");
+        return commentRepository.findProgramCountCommentsByDate(startDate, endDate, programId);
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumProgramsByState(TrainingState state) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumProgramsByState'");
+    public Map<TrainingState, Integer> findCountProgramsByState() {
+        return programRepository.findCountProgramsByState();
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumProgramsByUserAndState(UUID userId, TrainingState state) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumProgramsByUserAndState'");
+    public Map<TrainingState, Integer> findCountProgramsByUserAndState(UUID userId) {
+        return programRepository.findCountProgramsByUserAndState(userId);
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumProgramsByFeeling(TrainingFeeling feeling) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumProgramsByFeeling'");
+    public Map<TrainingState, Integer> findCountProgramsByFeeling() {
+        return programRepository.findCountProgramsByFeeling();
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumProgramsByUserAndFeeling(UUID userId, TrainingFeeling feeling) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumProgramsByUserAndFeeling'");
+    public Map<TrainingState, Integer> findCountProgramsByUserAndFeeling(UUID userId) {
+        return programRepository.findCountProgramsByUserAndFeeling(userId);
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumSessionsByState(TrainingState state) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumSessionsByState'");
+    public Map<TrainingState, Integer> findCountSessionsByState() {
+        return sessionRepository.findCountSessionsByState();
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumSessionsByUserAndState(UUID userId, TrainingState state) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumSessionsByUserAndState'");
+    public Map<TrainingState, Integer> findCountSessionsByUserAndState(UUID userId) {
+        return sessionRepository.findCountSessionsByUserAndState(userId);
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumSessionsByFeeling(TrainingFeeling feeling) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumSessionsByFeeling'");
+    public Map<TrainingState, Integer> findCountSessionsByFeeling() {
+        return sessionRepository.findCountSessionsByFeeling();
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumSessionsByUserAndFeeling(UUID userId, TrainingFeeling feeling) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumSessionsByUserAndFeeling'");
+    public Map<TrainingState, Integer> findCountSessionsByUserAndFeeling(UUID userId) {
+        return sessionRepository.findCountSessionsByUserAndFeeling(userId);
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumExercisesByState(TrainingState state) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumExercisesByState'");
+    public Map<TrainingState, Integer> findCountExercisesByState() {
+        return exerciseRepository.findCountExercisesByState();
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumExercisesByUserAndState(UUID userId, TrainingState state) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumExercisesByUserAndState'");
+    public Map<TrainingState, Integer> findCountExercisesByUserAndState(UUID userId) {
+        return exerciseRepository.findCountExercisesByUserAndState(userId);
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumExercisesByFeeling(TrainingFeeling feeling) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumExercisesByFeeling'");
+    public Map<TrainingState, Integer> findCountExercisesByFeeling() {
+        return exerciseRepository.findCountExercisesByFeeling();
     }
 
     @Override
-    public Map<TrainingState, Integer> findSumExercisesByUserAndFeeling(UUID userId, TrainingFeeling feeling) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSumExercisesByUserAndFeeling'");
+    public Map<TrainingState, Integer> findCountExercisesByUserAndFeeling(UUID userId) {
+        return exerciseRepository.findCountExercisesByUserAndFeeling(userId);
+    }
+
+    @Override
+    public Integer getUsersCount() {
+        return userRepository.getUsersCount();
+    }
+
+    @Override
+    public Integer getUsersCountByRole(UUID roleId) {
+        return userRepository.getUsersCountByRole(roleId);
     }
 
     @Override
