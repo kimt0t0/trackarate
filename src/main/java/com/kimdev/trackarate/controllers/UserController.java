@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kimdev.trackarate.dto.UserDto;
 import com.kimdev.trackarate.services.UserService;
-import com.kimdev.trackarate.validators.ObjectsValidator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     private final UserService service;
-    private final ObjectsValidator validator;
 
     // SAVE
     @PostMapping("/")
@@ -210,8 +208,8 @@ public class UserController {
     }
 
     // DELETE
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<UUID> delete(@PathVariable("userId") UUID id) {
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<Void> delete(@PathVariable("userId") UUID id) {
         service.delete(id);
         return ResponseEntity.accepted().build();
     }
