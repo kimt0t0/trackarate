@@ -122,12 +122,4 @@ public interface TrainingSessionService extends AbstractService<TrainingSessionD
 
     TrainingSessionDto findOnePublicByNameAndUserId(String name, UUID id);
 
-    TrainingSessionDto findOneByCommentsId(UUID commentId);
-
-    TrainingSessionDto findOneByLikesId(UUID likeId);
-
-    TrainingSessionDto findOnePublicByCommentsId(UUID commentId);
-
-    TrainingSessionDto findOnePublicByLikesId(UUID likeId);
-
 }

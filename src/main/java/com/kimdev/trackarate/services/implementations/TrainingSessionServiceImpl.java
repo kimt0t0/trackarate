@@ -466,44 +466,6 @@ public class TrainingSessionServiceImpl implements TrainingSessionService {
                                 + " or is not public"));
     }
 
-    @Override
-    public TrainingSessionDto findOneByCommentsId(UUID commentId) {
-        return repository.findOneByCommentsId(commentId)
-                .map(TrainingSessionDto::fromEntity)
-                .orElseThrow(
-                        () -> new EntityNotFoundException(
-                                "Training Session not found for comment with provided id: " + commentId));
-    }
-
-    @Override
-    public TrainingSessionDto findOneByLikesId(UUID likeId) {
-        return repository.findOneByLikesId(likeId)
-                .map(TrainingSessionDto::fromEntity)
-                .orElseThrow(
-                        () -> new EntityNotFoundException(
-                                "Training Session not found for like with provided id: " + likeId));
-    }
-
-    @Override
-    public TrainingSessionDto findOnePublicByCommentsId(UUID commentId) {
-        return repository.findOneByCommentsIdAndUserSettingsIsPrivate(commentId, false)
-                .map(TrainingSessionDto::fromEntity)
-                .orElseThrow(
-                        () -> new EntityNotFoundException(
-                                "Training Session not found for comment with provided id: " + commentId
-                                        + " or is not public"));
-    }
-
-    @Override
-    public TrainingSessionDto findOnePublicByLikesId(UUID likeId) {
-        return repository.findOneByLikesIdAndUserSettingsIsPrivate(likeId, false)
-                .map(TrainingSessionDto::fromEntity)
-                .orElseThrow(
-                        () -> new EntityNotFoundException(
-                                "Training Session not found for like with provided id: " + likeId
-                                        + " or is not public"));
-    }
-
     // DELETE
     @Override
     public void delete(UUID id) {

@@ -38,6 +38,40 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public List<QuestionDto> findAllByTitle(String title) {
+        return repository.findAllByTitleContainingIgnoreCase(title)
+                .stream()
+                .map(QuestionDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<QuestionDto> findAllPublicByTitle(String title) {
+        return repository.findAllByTitleContainingIgnoreCaseAndUserSettingsIsPrivate(title, false)
+                .stream()
+                .map(QuestionDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<QuestionDto> findAllByTitleOrDetails(String title, String details) {
+        return repository.findAllByTitleContainingIgnoreCaseOrDetailsContainingIgnoreCase(title, details)
+                .stream()
+                .map(QuestionDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<QuestionDto> findAllPublicByTitleOrDetails(String title, String details) {
+        return repository
+                .findAllByTitleContainingIgnoreCaseOrDetailsContainingIgnoreCaseAndUserSettingsIsPrivate(title, details,
+                        false)
+                .stream()
+                .map(QuestionDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public QuestionDto findById(UUID id) {
         return repository.findById(id)
                 .map(QuestionDto::fromEntity)

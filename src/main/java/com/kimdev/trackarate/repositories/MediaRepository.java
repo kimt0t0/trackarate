@@ -1,6 +1,7 @@
 package com.kimdev.trackarate.repositories;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -48,17 +49,18 @@ public interface MediaRepository extends JpaRepository<Media, UUID> {
     // FIND ONE
     Media findOneById(UUID id);
 
-    Media findOneByIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+    Optional<Media> findOneByIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
 
-    Media findOneByTitleContainingIgnoreCase(String title);
+    Optional<Media> findOneByTitleContainingIgnoreCase(String title);
 
-    Media findOneByTitleContainingIgnoreCaseAndUserSettingsIsPrivate(String title, boolean isPrivate);
+    Optional<Media> findOneByTitleContainingIgnoreCaseAndUserSettingsIsPrivate(String title, boolean isPrivate);
 
-    Media findOneByTitleContainingIgnoreCaseAndUserId(String title, UUID id);
+    Optional<Media> findOneByTitleContainingIgnoreCaseAndUserId(String title, UUID id);
 
-    Media findOneByTitleContainingIgnoreCaseAndUserUsername(String title, String username);
+    Optional<Media> findOneByTitleContainingIgnoreCaseAndUserUsername(String title, String username);
 
-    Media findOneByTitleContainingIgnoreCaseAndUserUsernameAndUserSettingsIsPrivate(String title, String username,
+    Optional<Media> findOneByTitleContainingIgnoreCaseAndUserUsernameAndUserSettingsIsPrivate(String title,
+            String username,
             boolean isPrivate);
 
 }

@@ -3,6 +3,7 @@ package com.kimdev.trackarate.repositories;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,16 +21,31 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
 
     List<TrainingProgram> findAllByUserId(UUID id);
 
+    List<TrainingProgram> findAllByUserIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+
     List<TrainingProgram> findAllByEndDateBefore(Date endDate); // finished programs
 
+    List<TrainingProgram> findAllByEndDateBeforeAndUserSettingsIsPrivate(Date endDate, boolean isPrivate);
+
     List<TrainingProgram> findAllByStartDateAfter(Date startDate); // not started yet programs
+
+    List<TrainingProgram> findAllByStartDateAfterAndUserSettingsIsPrivate(Date startDate, boolean isPrivate);
 
     List<TrainingProgram> findAllByStartDateAfterAndEndDateBefore(Date startDate, Date enDate); // started but not
                                                                                                 // finished programs
 
+    List<TrainingProgram> findAllByStartDateAfterAndEndDateBeforeAndUserSettingsIsPrivate(Date startDate, Date enDate,
+            boolean isPrivate);
+
     List<TrainingProgram> findAllByUserIdAndEndDateBefore(UUID id, Date endDate); // finished programs
 
+    List<TrainingProgram> findAllByUserIdAndEndDateBeforeAndUserSettingsIsPrivate(UUID id, Date endDate,
+            boolean isPrivate);
+
     List<TrainingProgram> findAllByUserIdAndStartDateAfter(UUID id, Date startDate); // not started yet programs
+
+    List<TrainingProgram> findAllByUserIdAndStartDateAfterAndUserSettingsIsPrivate(UUID id, Date startDate,
+            boolean isPrivate);
 
     List<TrainingProgram> findAllByUserIdAndStartDateAfterAndEndDateBefore(UUID id, Date startDate, Date enDate); // started
                                                                                                                   // but
@@ -37,7 +53,8 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
                                                                                                                   // finished
                                                                                                                   // programs
 
-    List<TrainingProgram> findAllByUserIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+    List<TrainingProgram> findAllByUserIdAndStartDateAfterAndEndDateBeforeAndUserSettingsIsPrivate(UUID id,
+            Date startDate, Date enDate, boolean isPrivate);
 
     List<TrainingProgram> findAllByUserUsernameContainingIgnoreCase(String username);
 
@@ -58,9 +75,17 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
     List<TrainingProgram> findAllByTrainingSessionsNameContainingIgnoreCaseAndUserSettingsIsPrivate(String name,
             boolean isPrivate);
 
+    List<TrainingProgram> findAllByState(TrainingState state);
+
     List<TrainingProgram> findAllByStateAndUserSettingsIsPrivate(TrainingState state, boolean isPrivate);
 
     List<TrainingProgram> findAllByStateAndUserId(TrainingState state, UUID id);
+
+    List<TrainingProgram> findAllByStateAndUserIdAndUserSettingsIsPrivate(TrainingState state, UUID id,
+            boolean isPrivate);
+
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndState(String name,
+            TrainingState state);
 
     List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndUserSettingsIsPrivate(String name,
             TrainingState state, boolean isPrivate);
@@ -68,9 +93,22 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
     List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndUserId(String name,
             TrainingState state, UUID id);
 
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndUserIdAndUserSettingsIsPrivate(
+            String name,
+            TrainingState state, UUID id, boolean isPrivate);
+
+    List<TrainingProgram> findAllByFeeling(TrainingFeeling feeling);
+
     List<TrainingProgram> findAllByFeelingAndUserSettingsIsPrivate(TrainingFeeling feeling, boolean isPrivate);
 
     List<TrainingProgram> findAllByFeelingAndUserId(TrainingFeeling feeling, UUID id);
+
+    List<TrainingProgram> findAllByFeelingAndUserIdAndUserSettingsIsPrivate(TrainingFeeling feeling, UUID id,
+            boolean isPrivate);
+
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndFeeling(
+            String name,
+            TrainingFeeling feeling);
 
     List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndFeelingAndUserSettingsIsPrivate(
             String name,
@@ -79,17 +117,28 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
     List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndFeelingAndUserId(String name,
             TrainingFeeling feeling, UUID id);
 
+    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndFeelingAndUserIdAndUserSettingsIsPrivate(
+            String name,
+            TrainingFeeling feeling, UUID id, boolean isPrivate);
+
+    List<TrainingProgram> findAllByStateAndFeeling(TrainingState state, TrainingFeeling feeling);
+
     List<TrainingProgram> findAllByStateAndFeelingAndUserSettingsIsPrivate(TrainingState state, TrainingFeeling feeling,
             boolean isPrivate);
 
     List<TrainingProgram> findAllByStateAndFeelingAndUserId(TrainingState state, TrainingFeeling feeling, UUID id);
 
-    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndFeelingAndUserSettingsIsPrivate(
-            String name,
-            TrainingState state, TrainingFeeling feeling, boolean isPrivate);
+    List<TrainingProgram> findAllByStateAndFeelingAndUserIdAndUserSettingsIsPrivate(TrainingState state,
+            TrainingFeeling feeling, UUID id, boolean isPrivate);
 
-    List<TrainingProgram> findAllByProgramTypesNameContainingIgnoreCaseAndStateAndFeelingAndUserId(String name,
-            TrainingState state, TrainingFeeling feeling, UUID id);
+    List<TrainingProgram> findAllByNameContainingIgnoreCase(String name);
+
+    List<TrainingProgram> findAllByNameContainingIgnoreCaseAndUserSettingsIsPrivate(String name, boolean isPrivate);
+
+    List<TrainingProgram> findAllByNameContainingIgnoreCaseAndUserId(String name, UUID id);
+
+    List<TrainingProgram> findAllByNameContainingIgnoreCaseAndUserIdAndUserSettingsIsPrivate(String name, UUID id,
+            boolean isPrivate);
 
     // COUNT
     @Query(value = "select state, count(*) from training_programs", nativeQuery = true)
@@ -105,17 +154,16 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
     Map<TrainingState, Integer> findCountProgramsByUserAndFeeling(UUID userId);
 
     // FIND ONE
-    TrainingProgram findOneById(UUID id);
+    Optional<TrainingProgram> findOneById(UUID id);
 
-    TrainingProgram findOneByIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+    Optional<TrainingProgram> findOneByIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
 
-    TrainingProgram findOneByNameContainingIgnoreCaseAndUserId(String name, UUID id);
+    Optional<TrainingProgram> findOneByNameContainingIgnoreCase(String name);
 
-    TrainingProgram findOneByCommentsId(UUID commentId);
+    Optional<TrainingProgram> findOneByNameContainingIgnoreCaseAndUserSettingsIsPrivate(String name, boolean isPrivate);
 
-    TrainingProgram findOneByLikesId(UUID likeId);
+    Optional<TrainingProgram> findOneByNameContainingIgnoreCaseAndUserId(String name, UUID id);
 
-    TrainingProgram findOneByCommentsIdAndUserSettingsIsPrivate(UUID commentId, boolean isPrivate);
-
-    TrainingProgram findOneByLikesIdAndUserSettingsIsPrivate(UUID likeId, boolean isPrivate);
+    Optional<TrainingProgram> findOneByNameContainingIgnoreCaseAndUserIdAndUserSettingsIsPrivate(String name, UUID id,
+            boolean isPrivate);
 }

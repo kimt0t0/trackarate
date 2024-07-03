@@ -164,16 +164,10 @@ public interface TrainingSessionRepository extends JpaRepository<TrainingSession
 
     Optional<TrainingSession> findOneByIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
 
+    // todo: add findOneByNameContainingIgnoreCase and
+    // findOneByNameContainingIgnoreCaseAndUserSettingsIsPrivate
     Optional<TrainingSession> findOneByNameContainingIgnoreCaseAndUserId(String name, UUID id);
 
     Optional<TrainingSession> findOneByNameContainingIgnoreCaseAndUserIdAndUserSettingsIsPrivate(String name, UUID id,
             boolean isPrivate);
-
-    Optional<TrainingSession> findOneByCommentsId(UUID commentId);
-
-    Optional<TrainingSession> findOneByLikesId(UUID likeId);
-
-    Optional<TrainingSession> findOneByCommentsIdAndUserSettingsIsPrivate(UUID commentId, boolean isPrivate);
-
-    Optional<TrainingSession> findOneByLikesIdAndUserSettingsIsPrivate(UUID likeId, boolean isPrivate);
 }

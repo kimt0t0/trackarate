@@ -38,10 +38,25 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<RoleDto> findAllByName(String name) {
+        return repository.findAllByNameContainingIgnoreCase(name)
+                .stream()
+                .map(RoleDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public RoleDto findById(UUID id) {
         return repository.findById(id)
                 .map(RoleDto::fromEntity)
                 .orElseThrow(() -> new EntityNotFoundException("Role not found with provided id: " + id));
+    }
+
+    @Override
+    public RoleDto findOneByName(String name) {
+        return repository.findOneByNameContainingIgnoreCase(name)
+                .map(RoleDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException("Role not found with provided name: " + name));
     }
 
     @Override

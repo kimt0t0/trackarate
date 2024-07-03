@@ -13,10 +13,13 @@ public interface QuestionRepository extends JpaRepository<Question, UUID> {
 
     List<Question> findAllByTitleContainingIgnoreCase(String title);
 
+    List<Question> findAllByTitleContainingIgnoreCaseAndUserSettingsIsPrivate(String title, boolean isPrivate);
+
     List<Question> findAllByTitleContainingIgnoreCaseOrDetailsContainingIgnoreCase(String title, String details);
 
-    List<Question> findAllByTitleContainingIgnoreCaseOrDetailsContainingIgnoreCaseOrAnswersTextContainingIgnoreCase(
-            String title, String details, String text);
+    List<Question> findAllByTitleContainingIgnoreCaseOrDetailsContainingIgnoreCaseAndUserSettingsIsPrivate(String title,
+            String details,
+            boolean isPrivate);
 
     List<Question> findAllByUserId(UUID id);
 
