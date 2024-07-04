@@ -1,6 +1,7 @@
 package com.kimdev.trackarate.repositories;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,14 +15,16 @@ public interface AvatarRepository extends JpaRepository<Avatar, UUID> {
     List<Avatar> findAllByUserSettingsIsPrivate(boolean isPrivate);
 
     // FIND ONE
-    Avatar findOneById(UUID id);
+    Optional<Avatar> findOneById(UUID id);
 
-    Avatar findOneByUserId(UUID id);
+    Optional<Avatar> findOneByIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
 
-    Avatar findOneByUserIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
+    Optional<Avatar> findOneByUserId(UUID id);
 
-    Avatar findOneByUserUsername(String username);
+    Optional<Avatar> findOneByUserIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
 
-    Avatar findOneByUserUsernameAndUserSettingsIsPrivate(String username, boolean isPrivate);
+    Optional<Avatar> findOneByUserUsername(String username);
+
+    Optional<Avatar> findOneByUserUsernameAndUserSettingsIsPrivate(String username, boolean isPrivate);
 
 }

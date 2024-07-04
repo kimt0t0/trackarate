@@ -32,6 +32,7 @@ public interface CommentRepository extends JpaRepository<Comment, UUID> {
 
     List<Comment> findAllByTrainingSessionIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
 
+    // COUNT
     @Query(value = "select count(*) from comments c where c.createdDate between :startDate and :endDate", nativeQuery = true)
     Map<LocalDate, Integer> findCountCommentsByDate(LocalDate startDate, LocalDate endDate);
 

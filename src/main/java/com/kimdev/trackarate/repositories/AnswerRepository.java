@@ -1,6 +1,7 @@
 package com.kimdev.trackarate.repositories;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,11 +28,11 @@ public interface AnswerRepository extends JpaRepository<Answer, UUID> {
     List<Answer> findAllByQuestionIdAndUserSettingsIsPrivate(UUID id, boolean isPrivate);
 
     // FIND ONE
-    Answer findOneById(UUID id);
+    Optional<Answer> findOneById(UUID id);
 
     @Query(value = "select * from answers where text ilike %:search%", nativeQuery = true)
-    Answer findOneByTextSearch(String search);
+    Optional<Answer> findOneByTextSearch(String search);
 
     @Query(value = "select * from answers a inner join users u inner join settings s on u.id = a.user_id and u.id = s.user_id where ((a.text ilike %:search%) and s.isPrivate = :isPrivate)", nativeQuery = true)
-    Answer findOneByTextSearchAndUserSettingsIsPrivate(String search, boolean isPrivate);
+    Optional<Answer> findOneByTextSearchAndUserSettingsIsPrivate(String search, boolean isPrivate);
 }

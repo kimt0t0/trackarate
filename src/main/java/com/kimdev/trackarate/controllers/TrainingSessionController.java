@@ -319,26 +319,6 @@ public class TrainingSessionController {
         return ResponseEntity.ok(service.findOnePublicByNameAndUserId(name, id));
     }
 
-    @GetMapping("/one/by-comment-id")
-    public ResponseEntity<TrainingSessionDto> findOneByCommentsId(@RequestBody UUID id) {
-        return ResponseEntity.ok(service.findOneByCommentsId(id));
-    }
-
-    @GetMapping("/one/by-like-id")
-    public ResponseEntity<TrainingSessionDto> findOneByLikesId(@RequestBody UUID id) {
-        return ResponseEntity.ok(service.findOneByLikesId(id));
-    }
-
-    @GetMapping("/one/public/by-comment-id")
-    public ResponseEntity<TrainingSessionDto> findOnePublicByCommentsId(@RequestBody UUID id) {
-        return ResponseEntity.ok(service.findOnePublicByCommentsId(id));
-    }
-
-    @GetMapping("/one/public/by-like-id")
-    public ResponseEntity<TrainingSessionDto> findOnePublicByLikesId(@RequestBody UUID id) {
-        return ResponseEntity.ok(service.findOnePublicByLikesId(id));
-    }
-
     // DELETE
     @DeleteMapping("/delete/{sessionId}")
     public ResponseEntity<Void> delete(
